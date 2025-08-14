@@ -51,11 +51,10 @@ export async function sendNewsletterEmail(data: NewsletterEmailData) {
 
     // 2) Send it now
     console.log(`📤 Campaign created with ID: ${body.id}`);
+    console.log('🚀 Sending campaign now...');
+    await campaigns.sendEmailCampaignNow(body.id);
+    console.log('✅ Newsletter sent successfully with Brevo');
     
-    // For now, just return the campaign ID
-    // The campaign can be sent manually from the Brevo dashboard
-    console.log("✅ Newsletter campaign created successfully with Brevo");
-    console.log("📝 Note: Campaign needs to be sent manually from Brevo dashboard");
     return body.id;
   } catch (error) {
     console.error("❌ Error sending newsletter with Brevo:", error);
