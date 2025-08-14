@@ -1,0 +1,32 @@
+export interface Job {
+  _id: string;
+  title: string;
+  slug: string;
+  description: string;
+  companyName: string;
+  remote: string;
+  type: string;
+  salary: number;
+  country: string;
+  state: string;
+  city: string;
+  countryId: string;
+  stateId: string;
+  cityId: string;
+  jobIcon: string;
+  postalCode: number;
+  street: string;
+  contactName: string;
+  contactPhone: string;
+  contactEmail: string;
+  applyLink: string;
+  createdAt: string;
+  updatedAt: string;
+  expiresOn: string;
+  seniority: string;
+  experienceRequirements?: string;
+  plan?: string;
+  userWorkosId?: string;
+  source?: string;
+  blockAIApplications?: boolean;
+}

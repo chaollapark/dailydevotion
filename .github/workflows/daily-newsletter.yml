@@ -1,0 +1,52 @@
+name: Daily Newsletter
+
+on:
+  schedule:
+    # Run daily at 9:00 AM Central European Time (CET/CEST)
+    # UTC time: 8:00 AM (CET) or 7:00 AM (CEST)
+    - cron: '0 8 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  send-newsletter:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: |
+        cd cron-newsletter
+        npm install
+        
+    - name: Build TypeScript
+      run: |
+        cd cron-newsletter
+        npm run build
+        
+    - name: Send Daily Newsletter
+      env:
+        MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+        BREVO_NEWSLETTER_LIST_ID: ${{ secrets.BREVO_NEWSLETTER_LIST_ID }}
+        EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+        NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
+      run: |
+        cd cron-newsletter
+        npm start
+        
+    - name: Handle failure
+      if: failure()
+      run: |
+        echo "Newsletter sending failed. Check the logs above for details."
+        # You could add additional failure handling here, like:
+        # - Sending a notification to your team
+        # - Logging to an external service
+        # - Retrying the job

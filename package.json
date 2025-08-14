@@ -1,0 +1,26 @@
+{
+  "name": "eujobs-newsletter-cron",
+  "version": "1.0.0",
+  "description": "Daily newsletter cron job for EUJobs.co",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "test": "tsx src/test.ts"
+  },
+  "dependencies": {
+    "@getbrevo/brevo": "^3.0.1",
+    "mongodb": "^6.14.0",
+    "mongoose": "^8.11.0",
+    "dotenv": "^16.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "tsx": "^4.19.4",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
