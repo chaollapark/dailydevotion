@@ -22,14 +22,10 @@ jobs:
         cache: 'npm'
         
     - name: Install dependencies
-      run: |
-        cd cron-newsletter
-        npm install
+      run: npm install
         
     - name: Build TypeScript
-      run: |
-        cd cron-newsletter
-        npm run build
+      run: npm run build
         
     - name: Send Daily Newsletter
       env:
@@ -38,9 +34,7 @@ jobs:
         BREVO_NEWSLETTER_LIST_ID: ${{ secrets.BREVO_NEWSLETTER_LIST_ID }}
         EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
         NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
-      run: |
-        cd cron-newsletter
-        npm start
+      run: npm start
         
     - name: Handle failure
       if: failure()
