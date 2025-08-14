@@ -54,6 +54,11 @@ export async function fetchLatestJobs(limit: number = 10): Promise<Job[]> {
       throw new Error('MONGODB_URI environment variable is required');
     }
     
+    // Validate MongoDB URI format
+    if (!mongoUri.startsWith('mongodb://') && !mongoUri.startsWith('mongodb+srv://')) {
+      throw new Error('MONGODB_URI must start with "mongodb://" or "mongodb+srv://"');
+    }
+    
     await mongoose.connect(mongoUri);
     console.log('✅ Connected to MongoDB');
 

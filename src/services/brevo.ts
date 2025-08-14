@@ -10,7 +10,7 @@ const campaigns = new Brevo.EmailCampaignsApi();
 campaigns.setApiKey(Brevo.EmailCampaignsApiApiKeys.apiKey, apiKey);
 
 // Newsletter list ID from environment
-const NEWSLETTER_LIST_ID = Number(process.env.BREVO_NEWSLETTER_LIST_ID || 0);
+const NEWSLETTER_LIST_ID = parseInt(process.env.BREVO_NEWSLETTER_LIST_ID || '0', 10);
 
 console.log('🔍 Debug - Environment variables:');
 console.log('BREVO_API_KEY:', process.env.BREVO_API_KEY ? 'Set' : 'Not set');
