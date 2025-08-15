@@ -52,7 +52,20 @@ export async function sendNewsletterEmail(data: NewsletterEmailData) {
     // 2) Send it now
     console.log(`📤 Campaign created with ID: ${body.id}`);
     console.log('🚀 Sending campaign now...');
-    await campaigns.sendEmailCampaignNow(body.id);
+    
+    // Use direct HTTP request to bypass Brevo SDK bug
+    // The SDK incorrectly passes campaign ID as request body data
+    const axios = require('axios');
+    const response = await axios.post(
+      `https://api.brevo.com/v3/emailCampaigns/${body.id}/sendNow`,
+      {},
+      {
+        headers: {
+          'api-key': apiKey,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
     console.log('✅ Newsletter sent successfully with Brevo');
     
     return body.id;
