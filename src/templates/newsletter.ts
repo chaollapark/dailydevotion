@@ -249,7 +249,7 @@ export function generateNewsletterHTML(jobs: Job[]): string {
             color: #1e40af; 
             font-size: 16px; 
             line-height: 1.5;
-          ">Here are the <strong>${jobs.length} newest job opportunities</strong> from <a href="${BASE}" style="color: #1e40af; text-decoration: underline;">EUJobs.co</a>. Find your next career move in EU policy, advocacy, and public affairs!</p>
+          ">Here are the <strong>${jobs.length} newest job opportunities</strong> from <a href="${BASE}" style="color: #1e40af; text-decoration: underline;">EUJobs.co</a>. Apply to one job a day - being first is better than being perfect.</p>
         </div>
 
         <!-- Jobs List -->
