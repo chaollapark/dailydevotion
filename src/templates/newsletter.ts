@@ -125,8 +125,8 @@ export function generateNewsletterHTML(jobs: Job[]): string {
         ` : ''}
       </div>
     </div>
-    ${index === 0 ? `
-    <!-- AI Promo as Job Posting (after first job) -->
+    ${index === 1 ? `
+    <!-- AI Promo as Job Posting (after second job - 3rd position) -->
     <div style="
       border: 1px solid #e5e7eb; 
       border-radius: 8px; 
@@ -162,11 +162,23 @@ export function generateNewsletterHTML(jobs: Job[]): string {
       ">EUJobs.co</p>
       
       <div style="
+        display: flex; 
+        gap: 16px; 
+        margin-bottom: 16px; 
+        font-size: 13px; 
+        color: #6b7280;
+      ">
+        <span>📍 Remote, EU</span>
+        <span>⏰ Flexible</span>
+        <span>💰 €100</span>
+      </div>
+      
+      <div style="
         color: #374151; 
         font-size: 14px; 
         line-height: 1.6; 
         margin-bottom: 16px;
-      ">The first 5% of applicant are 13x more likely to get a job. Making the perfect application isn't as important as being one of the first applicants.</div>
+      ">On average drafting a job application takes an hour. Making the perfect application isn't as important as being one of the first applicants.</div>
       
       <div style="display: flex; gap: 12px;">
         <a href="${BASE}/apply-with-ai?plan=100&${UTM}&utm_content=job_posting" 

@@ -62,13 +62,30 @@ export async function fetchLatestJobs(limit: number = 10): Promise<Job[]> {
     await mongoose.connect(mongoUri);
     console.log('✅ Connected to MongoDB');
 
-    // Fetch the most recent jobs, excluding eu-institution and eu-rss sources
-    const allJobs = await JobModel.find(
-      { source: { $nin: ['eu-institution', 'eu-rss'] } },
+    // First, get the most recent pro/recruiter job
+    const firstJob = await JobModel.findOne(
+      { 
+        plan: { $in: ['recruiter', 'pro'] },
+        source: { $nin: ['eu-institution', 'eu-rss'] }
+      },
       {},
-      { sort: { createdAt: -1 }, limit }
+      { sort: { createdAt: -1 } }
     );
-    console.log(`✅ Fetched ${allJobs.length} jobs from database`);
+
+    // Then get the remaining jobs (excluding pending and the first job if it exists)
+    const remainingLimit = firstJob ? limit - 1 : limit;
+    const otherJobs = await JobModel.find(
+      {
+        plan: { $nin: ['pending'] },
+        source: { $nin: ['eu-institution', 'eu-rss'] },
+        ...(firstJob && { _id: { $ne: firstJob._id } }) // Exclude the first job if it exists
+      },
+      {},
+      { sort: { createdAt: -1 }, limit: remainingLimit }
+    );
+
+    const allJobs = firstJob ? [firstJob, ...otherJobs] : otherJobs;
+    console.log(`✅ Fetched ${allJobs.length} jobs from database (${firstJob ? '1 pro/recruiter first, ' : ''}${otherJobs.length} other)`);
     
     return allJobs.map(job => job.toObject());
   } catch (error) {
