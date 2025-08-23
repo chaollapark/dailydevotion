@@ -86,18 +86,6 @@ export function generateNewsletterHTML(jobs: Job[]): string {
         ${job.salary ? `<span>💰 ${formatSalary(job.salary)}</span>` : ''}
       </div>
       
-      <div style="
-        color: #374151; 
-        font-size: 14px; 
-        line-height: 1.6; 
-        margin-bottom: 16px;
-        max-height: 80px; 
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-      ">${stripHtmlTags(job.description).substring(0, 200)}${stripHtmlTags(job.description).length > 200 ? '...' : ''}</div>
-      
       <div style="display: flex; gap: 12px;">
         <a href="${BASE}/jobs/${job.slug}" 
            style="
@@ -219,7 +207,7 @@ export function generateNewsletterHTML(jobs: Job[]): string {
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>EUJobs Daily Newsletter</title>
+      <title>Your reminder to apply a job</title>
     </head>
     <body style="
       margin: 0; 
