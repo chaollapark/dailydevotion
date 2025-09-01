@@ -1,33 +1,21 @@
 import { Job } from '../types/job';
 
 const BASE = process.env.NEXT_PUBLIC_BASE_URL || 'https://eujobs.co';
-const UTM = 'utm_source=newsletter&utm_medium=email&utm_campaign=apply_with_ai';
+const UTM = 'utm_source=newsletter&utm_medium=email&utm_campaign=daily_newsletter';
 
-function aiPromoHTML(position: 'hero'|'mid'|'footer' = 'hero'): string {
-  const wrapPad = position === 'footer' ? '16px' : '20px';
-  const titleSize = position === 'hero' ? '18px' : '16px';
-  const subSize = '14px';
+function newsletterSignupHTML(): string {
   return `
-  <div style="border:1px solid #e5e7eb;border-radius:8px;padding:${wrapPad};background:#fff;margin:${position==='mid'?'24px 0':'0 0 32px 0'}">
-    <h3 style="margin:0 0 6px 0;color:#111827;font-size:${titleSize};font-weight:700;">
-      Apply with AI — 100 applications for €100
+  <div style="border:1px solid #e5e7eb;border-radius:8px;padding:20px;background:#fff;margin:24px 0;text-align:center;">
+    <h3 style="margin:0 0 8px 0;color:#111827;font-size:18px;font-weight:700;">
+      📧 Share the EUJobs Newsletter
     </h3>
-    <p style="margin:0 0 12px 0;color:#374151;font-size:${subSize};line-height:1.5;">
-      On average drafting a job application takes an hour. How much is that worth to you?
+    <p style="margin:0 0 16px 0;color:#374151;font-size:14px;line-height:1.5;">
+      Help others discover EU policy career opportunities. Share this newsletter with your network!
     </p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
-      <a href="${BASE}/apply-with-ai?plan=100&${UTM}&utm_content=${position}"
-         style="background:#16a34a;color:#fff;padding:10px 14px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;display:inline-block">
-         Start 100 for €100
-      </a>
-      <a href="${BASE}/apply-with-ai?plan=25&${UTM}&utm_content=${position}"
-         style="background:#111827;color:#fff;padding:10px 14px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;display:inline-block">
-         Starter: 25 for €50
-      </a>
-    </div>
-    <p style="margin:0;color:#6b7280;font-size:12px;">
-      You approve every send · 7-day turnaround · On EUJobs & partners only · Refund/extend if we don't deliver.
-    </p>
+    <a href="https://abcf680b.sibforms.com/serve/MUIFABgpkc3efdpkZOd_3TtuelFIQxdxhZYGzKGq8wS73V_jWP7rY0HzNMg-EsC6VIz_mZIQpYZDjppbu3FlS0PeFBVdC7YM1AThcniXr5kKcJTcZKAXmJoSiDtsU3u2L27b0VROYX_loiGh2wLuoL1JKNhanZncVKuYi3rNQGwlw-voDu6XyuCR_YiN9t5-Jfvn-Lytjx2oTwBW"
+       style="background:#3b82f6;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;font-size:16px;display:inline-block;">
+       Subscribe to Newsletter
+    </a>
   </div>`;
 }
 
@@ -113,92 +101,6 @@ export function generateNewsletterHTML(jobs: Job[]): string {
         ` : ''}
       </div>
     </div>
-    ${index === 1 ? `
-    <!-- AI Promo as Job Posting (after second job - 3rd position) -->
-    <div style="
-      border: 1px solid #e5e7eb; 
-      border-radius: 8px; 
-      padding: 20px; 
-      margin-bottom: 20px; 
-      background-color: #ffffff;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    ">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
-        <h3 style="
-          margin: 0; 
-          color: #1f2937; 
-          font-size: 18px; 
-          font-weight: 600;
-          line-height: 1.4;
-        ">Apply with AI — 100 applications for €100</h3>
-        <span style="
-          background-color: #16a34a; 
-          color: white; 
-          padding: 4px 8px; 
-          border-radius: 4px; 
-          font-size: 12px; 
-          font-weight: 500;
-          text-transform: capitalize;
-        ">AI Service</span>
-      </div>
-      
-      <p style="
-        margin: 0 0 8px 0; 
-        color: #6b7280; 
-        font-size: 14px; 
-        font-weight: 500;
-      ">EUJobs.co</p>
-      
-      <div style="
-        display: flex; 
-        gap: 16px; 
-        margin-bottom: 16px; 
-        font-size: 13px; 
-        color: #6b7280;
-      ">
-        <span>📍 Remote, EU</span>
-        <span>⏰ Flexible</span>
-        <span>💰 €100</span>
-      </div>
-      
-      <div style="
-        color: #374151; 
-        font-size: 14px; 
-        line-height: 1.6; 
-        margin-bottom: 16px;
-      ">On average drafting a job application takes an hour. Making the perfect application isn't as important as being one of the first applicants.</div>
-      
-      <div style="display: flex; gap: 12px;">
-        <a href="${BASE}/apply-with-ai?plan=100&${UTM}&utm_content=job_posting" 
-           style="
-             background-color: #16a34a; 
-             color: white; 
-             padding: 8px 16px; 
-             text-decoration: none; 
-             border-radius: 4px; 
-             font-weight: 500; 
-             font-size: 14px;
-             display: inline-block;
-           ">Start 100 for €100</a>
-        <a href="${BASE}/apply-with-ai?plan=25&${UTM}&utm_content=job_posting" 
-           style="
-             background-color: #111827; 
-             color: white; 
-             padding: 8px 16px; 
-             text-decoration: none; 
-             border-radius: 4px; 
-             font-weight: 500; 
-             font-size: 14px;
-             display: inline-block;
-           ">Starter: 25 for €50</a>
-      </div>
-      <p style="
-        margin: 8px 0 0 0; 
-        color: #6b7280; 
-        font-size: 12px;
-      ">You approve every send · 7-day turnaround · On EUJobs & partners only · Refund/extend if we don't deliver.</p>
-    </div>
-    ` : ''}
   `).join('');
 
   return `
@@ -257,8 +159,6 @@ export function generateNewsletterHTML(jobs: Job[]): string {
           ${jobsHTML}
         </div>
 
-        <!-- AI Promo Mid -->
-        ${aiPromoHTML('mid')}
 
         <!-- Footer -->
         <div style="
@@ -283,6 +183,9 @@ export function generateNewsletterHTML(jobs: Job[]): string {
                font-size: 16px;
                display: inline-block;
              ">Browse All Jobs</a>
+          
+          <!-- Newsletter Signup -->
+          ${newsletterSignupHTML()}
           
           <div style="margin-top: 24px;">
             <p style="
