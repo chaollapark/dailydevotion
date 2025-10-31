@@ -1,75 +1,80 @@
 import dotenv from 'dotenv';
-import { fetchLatestJobs } from './models/job';
+import { getTodaysLetter } from './services/supabase';
 import { sendNewsletterEmail } from './services/brevo';
-import { generateNewsletterHTML } from './templates/newsletter';
+import { generateLetterHTML, generateLetterText } from './templates/letter';
 
 // Load environment variables
 dotenv.config();
 
-async function sendDailyNewsletter() {
-  console.log('🚀 Starting daily newsletter process...');
+async function sendDailyLetter() {
+  console.log('🚀 Starting daily letter process...');
   console.log('=====================================');
 
   try {
-    // Step 1: Fetch the latest 10 jobs
-    console.log('📋 Fetching latest jobs from database...');
-    const jobs = await fetchLatestJobs(10);
+    // Step 1: Fetch today's letter from Supabase
+    console.log('📋 Fetching today\'s letter from Supabase...');
+    const letter = await getTodaysLetter();
     
-    if (jobs.length === 0) {
-      console.log('⚠️ No jobs found. Skipping newsletter.');
+    if (!letter) {
+      console.log('⚠️ No letter found for today. Skipping email.');
       return;
     }
 
-    console.log(`✅ Found ${jobs.length} jobs to include in newsletter`);
+    console.log(`✅ Found letter to ${letter.recipient}`);
 
-    // Step 2: Generate newsletter HTML
-    console.log('📧 Generating newsletter HTML...');
-    const htmlContent = generateNewsletterHTML(jobs);
+    // Step 2: Generate email HTML
+    console.log('📧 Generating email HTML...');
+    const htmlContent = generateLetterHTML(letter);
+    const textContent = generateLetterText(letter);
     
-    // Step 3: Send newsletter email
-    console.log('📨 Sending newsletter to subscribers...');
+    // Step 3: Send email via Brevo
+    console.log('📨 Sending letter to subscribers...');
+    
+    const letterDate = new Date(letter.letter_date);
+    const formattedDate = letterDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    
     const emailData = {
-      subject: `EUJobs Daily: ${jobs.length} New Job Opportunities - ${new Date().toLocaleDateString()}`,
+      subject: `Letter to ${letter.recipient} - ${formattedDate}`,
       htmlContent,
-      senderName: 'EUJobs.co',
-      senderEmail: process.env.EMAIL_FROM || 'noreply@eujobs.online'
+      senderName: 'Prabhupada\'s Letters',
+      senderEmail: process.env.EMAIL_FROM || 'letters@radhadesh.com'
     };
 
     const response = await sendNewsletterEmail(emailData);
     
-    console.log('✅ Newsletter sent successfully!');
-    console.log('📊 Response:', response);
+    console.log('✅ Letter sent successfully!');
+    console.log('📊 Campaign ID:', response);
     
     // Log summary
-    console.log('\n📝 Newsletter Summary:');
+    console.log('\n📝 Letter Summary:');
     console.log('======================');
-    console.log(`📧 Jobs included: ${jobs.length}`);
-    console.log(`📅 Date: ${new Date().toLocaleDateString()}`);
-    console.log(`⏰ Time: ${new Date().toLocaleTimeString()}`);
-    
-    // Log job titles for reference
-    console.log('\n📋 Jobs included:');
-    jobs.forEach((job, index) => {
-      console.log(`${index + 1}. ${job.title} at ${job.companyName} (${job.seniority})`);
-    });
+    console.log(`📧 Recipient: ${letter.recipient}`);
+    console.log(`📅 Letter Date: ${formattedDate}`);
+    console.log(`📍 Location: ${letter.location || 'Unknown'}`);
+    console.log(`📊 Word Count: ${letter.word_count}`);
+    console.log(`⏰ Sent At: ${new Date().toLocaleTimeString()}`);
 
   } catch (error) {
-    console.error('❌ Error sending daily newsletter:', error);
+    console.error('❌ Error sending daily letter:', error);
     throw error;
   }
 }
 
 // Main execution
 if (require.main === module) {
-  sendDailyNewsletter()
+  sendDailyLetter()
     .then(() => {
-      console.log('\n🎉 Daily newsletter process completed successfully!');
+      console.log('\n🎉 Daily letter process completed successfully!');
       process.exit(0);
     })
     .catch((error) => {
-      console.error('\n💥 Daily newsletter process failed:', error);
+      console.error('\n💥 Daily letter process failed:', error);
       process.exit(1);
     });
 }
 
-export { sendDailyNewsletter };
+export { sendDailyLetter };

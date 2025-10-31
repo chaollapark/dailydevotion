@@ -1,4 +1,4 @@
-name: Daily Newsletter
+name: Daily Letter
 
 on:
   schedule:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch: # Allow manual trigger
 
 jobs:
-  send-newsletter:
+  send-daily-letter:
     runs-on: ubuntu-latest
     
     steps:
@@ -27,19 +27,19 @@ jobs:
     - name: Build TypeScript
       run: npm run build
         
-    - name: Send Daily Newsletter
+    - name: Send Daily Letter
       env:
-        MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
         BREVO_NEWSLETTER_LIST_ID: ${{ secrets.BREVO_NEWSLETTER_LIST_ID }}
         EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
-        NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
       run: npm start
         
     - name: Handle failure
       if: failure()
       run: |
-        echo "Newsletter sending failed. Check the logs above for details."
+        echo "Daily letter sending failed. Check the logs above for details."
         # You could add additional failure handling here, like:
         # - Sending a notification to your team
         # - Logging to an external service

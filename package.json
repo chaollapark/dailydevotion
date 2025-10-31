@@ -1,7 +1,7 @@
 {
-  "name": "eujobs-newsletter-cron",
+  "name": "prabhupada-letters-cron",
   "version": "1.0.0",
-  "description": "Daily newsletter cron job for EUJobs.co",
+  "description": "Daily newsletter cron job for Prabhupada's Letters",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -11,9 +11,8 @@
   },
   "dependencies": {
     "@getbrevo/brevo": "^3.0.1",
-    "dotenv": "^16.5.0",
-    "mongodb": "^6.14.0",
-    "mongoose": "^8.11.0"
+    "@supabase/supabase-js": "^2.39.0",
+    "dotenv": "^16.5.0"
   },
   "devDependencies": {
     "@types/node": "^22.18.0",

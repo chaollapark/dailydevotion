@@ -21,6 +21,7 @@ console.log('EMAIL_FROM:', process.env.EMAIL_FROM);
 export interface NewsletterEmailData {
   subject: string;
   htmlContent: string;
+  textContent?: string;
   senderName?: string;
   senderEmail?: string;
 }
