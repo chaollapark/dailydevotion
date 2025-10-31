@@ -151,7 +151,7 @@ BREVO_API_KEY=xkeysib-xxxxx
 BREVO_NEWSLETTER_LIST_ID=123
 
 # Email
-EMAIL_FROM=letters@radhadesh.com
+EMAIL_FROM=letters@dfsafsadf.com
 ```
 
 ### GitHub Secrets (for deployment)

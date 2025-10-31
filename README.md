@@ -34,7 +34,7 @@ Required environment variables:
 - `SUPABASE_ANON_KEY`: Your Supabase anon/public key
 - `BREVO_API_KEY`: Your Brevo API key
 - `BREVO_NEWSLETTER_LIST_ID`: The ID of your Brevo newsletter list
-- `EMAIL_FROM`: Sender email address (e.g., letters@radhadesh.com)
+- `EMAIL_FROM`: Sender email address (e.g., letters@rdsafsadf.com)
 
 ### 2. Install Dependencies
 

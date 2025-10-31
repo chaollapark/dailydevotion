@@ -41,7 +41,7 @@ async function sendDailyLetter() {
       subject: `Letter to ${letter.recipient} - ${formattedDate}`,
       htmlContent,
       senderName: 'Prabhupada\'s Letters',
-      senderEmail: process.env.EMAIL_FROM || 'letters@radhadesh.com'
+      senderEmail: process.env.EMAIL_FROM || 'letters@rsdafadf.com'
     };
 
     const response = await sendNewsletterEmail(emailData);

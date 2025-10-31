@@ -32,7 +32,7 @@ export async function sendNewsletterEmail(data: NewsletterEmailData) {
       throw new Error('BREVO_NEWSLETTER_LIST_ID environment variable is required');
     }
 
-    const fromEmail = process.env.EMAIL_FROM || 'noreply@eujobs.online';
+    const fromEmail = process.env.EMAIL_FROM || 'madan_chaolla@yahoo.co.in';
     const cleanEmail = fromEmail.includes('<') ? fromEmail.match(/<(.+?)>/)?.[1] || fromEmail : fromEmail;
 
     // 1) Create the campaign
@@ -40,7 +40,7 @@ export async function sendNewsletterEmail(data: NewsletterEmailData) {
     campaign.name = `Newsletter: ${data.subject}`;
     campaign.subject = data.subject;
     campaign.sender = { 
-      name: data.senderName || 'EUJobs.co', 
+      name: data.senderName || 'Prabhupada\'s Letters',
       email: cleanEmail 
     };
     campaign.htmlContent = data.htmlContent;

@@ -35,7 +35,7 @@ BREVO_API_KEY=your_brevo_api_key_here         # Get from Brevo → Settings → 
 BREVO_NEWSLETTER_LIST_ID=123                   # Your list ID number
 
 # Email
-EMAIL_FROM=letters@radhadesh.com               # Your verified sender email
+EMAIL_FROM=letters@asdfasdf.com           # Your verified sender email
 ```
 
 ### 3. Test It
