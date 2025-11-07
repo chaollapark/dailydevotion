@@ -104,6 +104,7 @@ export function generateLetterHTML(letter: Letter): string {
           padding: 16px 20px; 
           margin-bottom: 32px;
           border-radius: 0 4px 4px 0;
+          text-align: center;
         ">
           <p style="
             margin: 0; 
@@ -111,8 +112,10 @@ export function generateLetterHTML(letter: Letter): string {
             font-size: 14px; 
             line-height: 1.6;
             font-style: italic;
-          ">"The spiritual master is to be honored as much as the Supreme Lord, because he is the most confidential servitor of the Lord."</p>
-        </div>
+          ">“Supported by 
+  <a href="https://vanipedia.com?utm_source=daily-letters&utm_medium=email&utm_campaign=footer"
+     style="color:#92400e;text-decoration:underline;">Vanipedia</a>”
+</p>
 
         <!-- Footer -->
         <div style="
