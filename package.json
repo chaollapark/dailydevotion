@@ -8,7 +8,10 @@
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
     "test": "tsx src/test.ts",
-    "test:send": "tsx src/test-send.ts"
+    "test:send": "tsx src/test-send.ts",
+    "activity": "tsx src/run-activity.ts",
+    "activity:light": "tsx src/run-activity.ts light",
+    "activity:stats": "tsx src/run-activity.ts stats"
   },
   "dependencies": {
     "@getbrevo/brevo": "^3.0.1",

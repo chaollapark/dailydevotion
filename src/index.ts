@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import { getTodaysLetter } from './services/supabase';
 import { sendNewsletterEmail } from './services/brevo';
 import { generateLetterHTML, generateLetterText } from './templates/letter';
+import { performDatabaseActivity } from './services/database-activity';
 
 // Load environment variables
 dotenv.config();
@@ -11,6 +12,15 @@ async function sendDailyLetter() {
   console.log('=====================================');
 
   try {
+    // Step 0: Perform database activity to keep Supabase active
+    console.log('🔄 Performing database activity to maintain Supabase connection...');
+    try {
+      await performDatabaseActivity();
+      console.log('✅ Database activity completed successfully\n');
+    } catch (activityError) {
+      console.warn('⚠️ Database activity failed, but continuing with main process:', activityError);
+    }
+
     // Step 1: Fetch today's letter from Supabase
     console.log('📋 Fetching today\'s letter from Supabase...');
     const letter = await getTodaysLetter();
